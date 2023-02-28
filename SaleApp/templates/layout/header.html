@@ -1,26 +1,51 @@
 <nav>
-    <div class="navigation">
-        <div class="logo">
-            <img src=".\static\images\logo.png" alt=""></im>
-        </div>
-        <div class="main-nav">
-            <ul>
-                <li>Sản phẩm</li>
-                <li>Hỗ trợ</li>
-                <li>Khuyến mãi</li>
-                <li>Blog</li>
-            </ul>
-        </div>
-        <div class="icon-nav">
-            <ul>
-                <li><i class="fa fa-user"></i></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
-        <div class="language">
+    <div class="header">
+                <div class="header-wrap row ">
+                    <div class="header-nav__logo col l-2">
+                        <img class="header-nav__logo-img" src="../static/images/logo.png" alt="">
+                    </div>
 
-        </div>
-    </div>
+                    <div class="header-nav__menu col l-8">
+                        <ul class="header-nav__list">
+                            <li class="header-nav__item"><a href="#" class="header-nav__link">Sản phẩm<i class="header-nav__link-arrow"></i></a>
+                                <div class="header-nav__submenu" id="submenu-home">
+                                        <ul class="header-nav__submenu-list">
+                                            <li class="header-submenu__item"><a href="../product_1.html" class="header-submenu__link">Máy tính<i class="header-nav__link-arrow"></i></a></li>
+                                            <li class="header-submenu__item"><a href="../product_1.html" class="header-submenu__link">Phụ kiện<i class="header-nav__link-arrow"></i></a></li>
+                                        </ul>
+                                </div>
+                            </li>
+                            <li class="header-nav__item"><a href="#" class="header-nav__link">Khuyến mãi<i class="header-nav__link-arrow"></i></a></li>
+                            <li class="header-nav__item"><a href="#" class="header-nav__link">Blog<i class="header-nav__link-arrow"></i></a>
+
+                            </li>
+                            <li class="header-nav__item"><a href="#" class="header-nav__link">Tuyển dụng<i class="header-nav__link-arrow"></i></a></li>
+                        </ul>
+                    </div>
+
+                    <div class="header-nav__right col l-2">
+                        <ul class="header-nav-right__list-icon">
+                            <li class="header-nav-right__item"><i class="header-nav-right__icon header-nav__cart fas fa-shopping-cart"></i>
+                                <div class="header-nav-cart__product">
+                                    <span class="no-product">Không có sản phẩm trong giỏ hàng</span>
+                                </div>
+                            </li>
+                            <li class="header-nav-right__item">
+                                <form class="form">
+                                  <button>
+                                      <i class="header-nav-right__icon header-nav__search fas fa-search" id="modal-open"></i>
+                                  </button>
+                                  <input class="input" placeholder="Sản phẩm cần tìm..." required="" type="text">
+                                  <button class="reset" type="reset">
+                                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                                      </svg>
+                                  </button>
+                              </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
 </nav>
