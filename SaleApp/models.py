@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Float, Boolean, DateTime, ForeignKey, Enum
 from sqlalchemy.orm import relationship
-from oucomputer.SaleApp.init import db, app
+from SaleApp.init import db, app
 from datetime import datetime
 from enum import Enum as UserEnum
 from flask_login import UserMixin
@@ -80,63 +80,42 @@ class Comment(BaseModel):
     product_id = Column(Integer, ForeignKey(Product.id), nullable=True)
 
 
-class Rule(BaseModel):
-    name = Column(String(255), nullable=False)
-    value = Column(Integer)
-    unit = Column(String(255))
-
-
 if __name__ == '__main__':
     with app.app_context():
 
         # db.create_all()
 
-        c1 = Category(name="TV")
-        c2 = Category(name="Tủ lạnh")
-        c3 = Category(name="Máy lạnh")
-        c4 = Category(name="Máy giặt")
-        c5 = Category(name="Đồ gia dụng")
+        c1 = Category(name="Máy tính")
+        c2 = Category(name="Phụ kiện")
 
-        db.session.add_all([c1, c2, c3, c4, c5])
+        db.session.add_all([c1, c2])
 
-        p1 = Product(name='Tranh truyện lịch sử Việt Nam', description='mô tả 1', price=13500,
-                     image='https://res.cloudinary.com/de3yhowd4/image/upload/v1669606587/tranhtruyenlsvn_zlls4o.webp',
+        p1 = Product(name='Laptop Apple MacBook Pro 16 M1 Pro 2021', description='10 core-CPU/16GB/512GB/16 core-GPU (MK1E3SA/A)', price=50190000,
+                     image='https://cdn.tgdd.vn/Products/Images/44/253636/apple-macbook-pro-16-m1-pro-2021-10-core-cpu-600x600.jpg',
                      category_id=1)
-        p2 = Product(name='Ước mơ đến trường', description='mô tả 2', price=27000,
-                     image='https://res.cloudinary.com/de3yhowd4/image/upload/v1669606692/uocmodentruong_vpdnjv.webp',
+        p2 = Product(name='Laptop Asus Gaming ROG Strix SCAR 18', description='i9 13980HX/64GB/2TB/16GB RTX4090/240Hz/Balo/Chuột/Win11(N6039W)', price=124000000,
+                     image='https://cdn.tgdd.vn/Products/Images/44/302473/asus-gaming-rog-strix-scar-18-g834jy-i9-n6039w-thumb-600x600.jpg',
                      category_id=1)
-        p3 = Product(name='Gấu anh gấu em - tập 8', description='mô tả 3', price=27000,
-                     image='https://res.cloudinary.com/de3yhowd4/image/upload/v1669606785/gauanh-gauem-tap8_gwtvgs.jpg',
+        p3 = Product(name='Laptop HP Envy 16 h0205TX', description='i9 12900H/32GB/512GB/6GB RTX3060/Touch/Win11 (7C0T2PA)', price=64890000,
+                     image='https://cdn.tgdd.vn/Products/Images/44/302980/hp-envy-16-h0205tx-i9-7c0t2pa-1.jpg',
                      category_id=1)
-        p4 = Product(name='Gấu anh gấu em - tập 7', description='mô tả 4', price=27000,
-                     image='https://res.cloudinary.com/de3yhowd4/image/upload/v1669606884/gauanhgauem-tap7_gqbtib.webp',
+        p4 = Product(name='Laptop MSI Creator Z16 A12UET', description='i7 12700H/16GB/1TB SSD/6GB RTX3060/120Hz/Túi/Chuột/Win11 (036VN)', price=60990000,
+                     image='https://cdn.tgdd.vn/Products/Images/44/274783/msi-creator-z16-a12uet-i7-036vn-200322-110544-600x600.jpg',
                      category_id=1)
-        p5 = Product(name='Trẻ con có phải siêu nhân đâu', description='mô tả 4', price=27000,
-                     image='https://res.cloudinary.com/de3yhowd4/image/upload/v1669607005/sachvanhocvietnam_adsrpn.webp',
+        p5 = Product(name='Pin sạc dự phòng Polymer', description='10.000 mAh AVA PJ JP196', price=70000,
+                     image='https://cdn.tgdd.vn/Products/Images/57/217434/pin-sac-du-phong-polymer-10000mah-ava-pj-jp196-den-thumb-1-600x600.jpeg',
                      category_id=2)
-        p6 = Product(name='Dế mèn phiêu lưu ký', description='mô tả 4', price=27000,
-                  image='https://res.cloudinary.com/de3yhowd4/image/upload/v1671198205/de-men-phieu-luu-ky-_13x19_bia_tb2019-1_306f580015064449ae2aa6db2f05a6b7_large_svngxv.jpg',
+        p6 = Product(name='Cáp Micro USB 20cm AVA Speed II', description='Thiết kế nhỏ gọn, chất liệu mềm dẻo dễ quấn gọn, dễ mang theo bên mình.', price=20000,
+                      image='https://cdn.tgdd.vn/Products/Images/58/217252/cap-micro-20cm-ava-speed-ii-thumb3-600x600.jpeg',
+                      category_id=2)
+        p7 = Product(name='Ốp lưng iPhone 11 Pro Nhựa dẻo Noble Nake JM', description='Thiết kế trong suốt đẹp mắt, tôn vinh vẻ ngoài cao cấp của iPhone 11 Pro.', price=10000,
+                  image='https://cdn.tgdd.vn/Products/Images/60/212054/op-lung-iphone-11-pro-nhua-deo-noble-nake-jm-nude-1-1-600x600.jpg',
                   category_id=2)
-        p7 = Product(name='Phòng thiết kế', description='mô tả 4', price=27000,
-                  image='https://res.cloudinary.com/de3yhowd4/image/upload/v1671198196/1_8b2c4187760845c2a79b31ddb44def57_large_kenusq.jpg',
+        p8 = Product(name='Miếng dán màn hình iPhone 12 Mini', description='Chống trầy xước tối ưu màn hình điện thoại iPhone 12 mini.', price=10000,
+                  image='https://cdn.tgdd.vn/Products/Images/1363/230505/mieng-dan-man-hinh-iphone-12-mini-ava-600x600.jpg',
                   category_id=2)
-        p8 = Product(name='Những bài diễn văn làm thay đổi thế giới', description='mô tả 4',
-                  image='https://res.cloudinary.com/de3yhowd4/image/upload/v1671198139/nhung-bai-dien-van-lam-thay-doi-the-gioi_bia-1_7ae332181a444ac5911d06c7f066f410_large_rttrzz.jpg',
-                  category_id=2)
-        p9 = Product(name='Siêu thông minh', description='mô tả 4', price=27000,
-                  image='https://res.cloudinary.com/de3yhowd4/image/upload/v1671198196/sieu-thong-minh-tu-duy_xa-hoi-hoc_52be9ef2039c4dddb53f94b23d7e269e_large_g1tode.webp',
-                  category_id=3)
-        p10 = Product(name='Một nửa của thế giới', description='mô tả 4', price=27000,
-                  image='https://res.cloudinary.com/de3yhowd4/image/upload/v1671198139/mot-nua-cua-the-gioi_355acaa917f944aaa915d6d52f82bea7_large_heta52.webp',
-                  category_id=3)
-        p11 = Product(name='Sự hình thành của thế giới', description='mô tả 4', price=27000,
-                  image='https://res.cloudinary.com/de3yhowd4/image/upload/v1671198093/su-sinh-thanh-the-gioi_622ef45f13a2438899e450bb4228d48f_master_nzipng.webp',
-                  category_id=3)
-        p12 = Product(name='Đất nước gấm hoa', description='mô tả 4', price=27000,
-                  image='https://res.cloudinary.com/de3yhowd4/image/upload/v1671198139/dat-nuoc-gam-hoa---bia_0ffe3dbcbff248f49887a556b86b5502_large_lmmvdj.webp',
-                  category_id=3)
 
-        db.session.add_all([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12])
+        db.session.add_all([p1, p2, p3, p4, p5, p6, p7, p8])
 
         password = str(hashlib.md5('123123'.encode('utf-8')).hexdigest())
         u = User(name="Admin",
@@ -151,9 +130,3 @@ if __name__ == '__main__':
         cmt2 = Comment(content='Xung dang de mua', user_id=1, product_id=1)
 
         db.session.add_all([cmt1, cmt2])
-
-        rule1 = Rule(name="Số lượng nhập tối thiểu", value=150, unit="Sản phẩm")
-        rule2 = Rule(name="Số lượng tồn tối thiểu", value=300, unit="Sản phẩm")
-        rule3 = Rule(name="Thời gian hủy đơn", value=48, unit="giờ")
-        db.session.add_all([rule1, rule2, rule3])
-        db.session.commit()

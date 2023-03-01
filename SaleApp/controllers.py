@@ -11,10 +11,10 @@ from flask import render_template, request, redirect, url_for, session, jsonify,
 from flask_login import login_user, logout_user, login_required
 from pytz import HOUR
 from sqlalchemy.sql.functions import now
-from oucomputer.SaleApp import utils
-from oucomputer.SaleApp.init import app, db
-from oucomputer.SaleApp.decorators import annonymous_user
-from oucomputer.SaleApp.models import User, Rule, ReceiptDetails, Receipt
+from SaleApp import utils
+from SaleApp.init import app, db
+from SaleApp.decorators import annonymous_user
+from SaleApp.models import User, ReceiptDetails, Receipt
 
 
 def index():  # Trang chu
@@ -99,27 +99,6 @@ def update_product(product_id):
     return redirect('/admin/product/')
 
 
-def import_products(product_id):
-    if request.method.__eq__('POST'):
-        quantity = int(request.form.get('quantity'))
-
-        product = utils.get_product_by_id(product_id)
-
-        rule1 = utils.get_rule_by_id(1)
-        rule2 = utils.get_rule_by_id(2)
-        min_quantity = int(rule1.value)  # So luong nhap toi thieu: 150
-        min_stock = int(rule2.value)  # So luong ton trong kho phai be hon: 300
-
-        if product.quantity < min_stock:  # So luong sach trong kho < 300
-            if quantity >= min_quantity:  # So luong sach muon nhap > 150
-                product.quantity += quantity
-            else:
-                abort(406)
-        else:
-            abort(406)
-        db.session.commit()
-    return redirect('/admin/product/')
-
 
 def receipt_details(receipt_id):
     receipt = utils.get_receipt_by_id(receipt_id=receipt_id)
@@ -129,23 +108,6 @@ def receipt_details(receipt_id):
         sum += product.quantity * product.price
 
     return render_template('admin/receipt/receipt-details.html', receipt_details=receipt_details, sum=sum)
-
-
-def reload_receipt():
-    try:
-        rule = utils.get_rule_by_id(3)
-        query = Receipt.query.filter(Receipt.created_date < datetime.now() - timedelta(hours=rule.value))
-        receipts = query.all()
-        for receipt in receipts:
-            ReceiptDetails.query.filter(ReceiptDetails.receipt_id.__eq__(receipt.id)).delete()
-            db.session.commit()
-
-            db.session.delete(receipt)
-            db.session.commit()
-    except:
-        return abort(404, "Error")
-    # return
-    return redirect('/admin/receipt/')
 
 
 def user_register():

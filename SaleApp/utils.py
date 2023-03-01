@@ -4,8 +4,8 @@ from datetime import datetime
 from flask_login import current_user
 from sqlalchemy import func
 
-from oucomputer.SaleApp.init import db, app
-from oucomputer.SaleApp.models import User, UserRole, Category, Product, Receipt, ReceiptDetails, Comment, Rule
+from SaleApp.init import db, app
+from SaleApp.models import User, UserRole, Category, Product, Receipt, ReceiptDetails, Comment
 import hashlib
 
 
@@ -81,10 +81,6 @@ def load_products(category_id=None, keyword=None):  # lay tat ca cac sach
 
 def get_product_by_id(product_id):
     return Product.query.get(product_id)
-
-
-def get_rule_by_id(rule_id):
-    return Rule.query.get(rule_id)
 
 
 def load_receipts():
