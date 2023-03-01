@@ -5,7 +5,9 @@ from flask_login import current_user
 from sqlalchemy import func
 
 from SaleApp.init import db, app
+
 from SaleApp.models import User, UserRole, Category, Product, Receipt, ReceiptDetails, Comment
+
 import hashlib
 
 
@@ -64,16 +66,13 @@ def get_user_by_id(user_id):
 
 def load_categories():
     query = Category.query
-
     return query.all()
 
 
 def load_products(category_id=None, keyword=None):  # lay tat ca cac sach
     query = Product.query
-
     if category_id:
         query = query.filter(Product.category_id.__eq__(category_id))
-
     elif keyword:
         query = query.filter(Product.name.contains(keyword))
     return query.order_by(Product.created_date.desc()).all()

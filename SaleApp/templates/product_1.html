@@ -1,5 +1,27 @@
 {% extends 'layout/base.html' %}
 {% block title %} {% endblock %}
 {% block content %}
-<p>Ti vi</p>
+<div class="product-list">
+     <div class="content-section">
+         <div class="product-list">
+             {% for p in product %}
+             <div class="col_5 col">
+                 <div class="img-product">
+                     <a href="{{ url_for('product_detail', product_id = p.id) }}">
+                         <img src="{{ p.image }}" alt="Ảnh" class="product-img">
+                     </a>
+                 </div>
+                 <div class="product-body">
+                     <h2 class="product-heading">{{ p.name }}</h2>
+                     <p class="prodct-decription">Fri 27 Nov 2016</p>
+                     <p class="product-content">{{ p.description }}</p>
+                     <a href="{{ url_for('product_detail', product_id = p.id) }}">
+                         <button class="btn1 js-place-buy-btn">Xem Chi Tiết</button>
+                     </a>
+                 </div>
+             </div>
+             {% endfor %}
+         </div>
+     </div>
+</div>
 {% endblock %}

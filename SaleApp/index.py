@@ -1,4 +1,4 @@
-from flask import render_template, session
+from flask import render_template, session, request
 from SaleApp import controllers, utils
 from SaleApp.init import app, login
 
@@ -26,6 +26,12 @@ app.add_url_rule('/api/products/<product_id>/comments', "add_comment", controlle
 app.add_url_rule("/api/pay", "pay", controllers.pay)
 
 
+@app.route("/")
+def home():
+    categories = utils.load_categories()
+    render_template('index.html', Category = categories)
+
+
 @app.context_processor
 def common_response():
     categories = utils.load_categories()
@@ -40,7 +46,21 @@ def common_response():
 @login.user_loader
 def user_load(user_id):
     return utils.get_user_by_id(user_id=user_id)
+    return render_template('index.html', Category = categories)
 
+@app.route("/list_product")
+def list_product():
+    categories = utils.load_categories()
+    Category_id = request.args.get("Category_id")
+    product = utils.load_products(Category_id)
+    return render_template('product_1.html', product=product, Category = categories)
+
+@app.route("/product_detail")
+def product_detail():
+    categories = utils.load_categories()
+    Product_id = request.args.get("product_id")
+    product = utils.get_product_by_id(Product_id)
+    return render_template('product_2.html', product=product, Category = categories)
 
 if __name__ == '__main__':
     app.run(debug=True)

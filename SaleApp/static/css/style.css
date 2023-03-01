@@ -332,8 +332,9 @@ input:not(:placeholder-shown) ~ .reset {
 footer {
   background-color: #222;
   color: #fff;
-  padding: 50px 0;
+  padding: 50px 30px;
   margin-top: 100px;
+  display: inline-block;
 }
 
 /* Style cho phần footer-top */
@@ -400,4 +401,108 @@ footer {
 .footer-bottom__text {
   font-size: 14px;
   line-height: 1.5;
+}
+
+/* Style cho phần list_product */
+
+.content-section{
+    margin-top: 130px;
+    width: 90%;
+    max-width: 100%;
+    margin-left:auto;
+    margin-right: auto;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+.product-img{
+    width:100%;
+    transition: transform .7s ease;
+}
+.img-product {
+    overflow:hidden;
+}
+.product-img:hover {
+    opacity:0.6;
+    transform: scale(1.1);
+}
+.col_5{
+    width: 20%;
+}
+.btn1{
+    color:#fff;
+    background-color: #000;
+    text-decoration: none;
+    padding:11px 16px;
+    display:inline-block;
+    margin-top: 15px;
+    border: none;
+}
+.btn1:hover{
+    cursor: pointer;
+    color:#000;
+    background-color: #ccc;
+}
+.prodct-decription{
+    margin-top: 15px;
+    color:#757575;
+}
+.product-content{
+    margin-top: 15px;
+    line-height: 1.4;
+}
+.product-list{
+    margin-top: 32px;
+}
+.product-body{
+    background-color: #fff;
+    padding:16px;
+    font-size: 15px;
+}
+.col{
+    float: left;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+/* Style cho phần product-detail */
+
+.product{
+    margin-top: 150px;
+}
+.product-price{
+    margin-bottom: 15px;
+ padding: 10px 10px;
+ background-color: rgba(255,172,10,.6);
+ display: inline-block;
+ border-radius: 10px;
+}
+.product-name{
+    margin: 20px 10px;
+}
+.product-detail{
+    width: 80%;
+}
+.product-image{
+    width: 40%;
+}
+.product-img-detail {
+    width: 100%;
+}
+.product-description {
+    margin: 20px;
+    width: 50%;
+
+}
+.product-offer {
+     margin-bottom: 30px;
+}
+.product-offer p{
+    font-size: 15px;
+    padding-left: 10px;
+}
+.product-heading {
+    margin: 10px 0;
+}
+.fa-envelope{
+ margin-right: 3px;
 }
