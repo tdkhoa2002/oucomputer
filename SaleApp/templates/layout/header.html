@@ -10,8 +10,9 @@
                             <li class="header-nav__item"><a href="#" class="header-nav__link">Sản phẩm<i class="header-nav__link-arrow"></i></a>
                                 <div class="header-nav__submenu" id="submenu-home">
                                         <ul class="header-nav__submenu-list">
-                                            <li class="header-submenu__item"><a href="../product_1.html" class="header-submenu__link">Máy tính<i class="header-nav__link-arrow"></i></a></li>
-                                            <li class="header-submenu__item"><a href="../product_1.html" class="header-submenu__link">Phụ kiện<i class="header-nav__link-arrow"></i></a></li>
+                                        {% for c in Category %}
+                                            <li class="header-submenu__item"><a href="/list_product?Category_id={{ c.id }}" class="header-submenu__link">{{ c.name }}<i class="header-nav__link-arrow"></i></a></li>
+                                        {% endfor %}
                                         </ul>
                                 </div>
                             </li>

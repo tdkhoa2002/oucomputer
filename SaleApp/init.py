@@ -13,8 +13,7 @@ app.config['FLASK_ADMIN_SWATCH'] = 'Solar'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:%s@localhost/saleapp?charset=utf8mb4' % quote('12345678')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['CART_KEY'] = 'cart'
-app.config['SO_LUONG_NHAP'] = 150
-app.config['SO_LUONG_Ton'] = 300
+
 
 db = SQLAlchemy(app=app)
 login_manager = LoginManager()

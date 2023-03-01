@@ -89,6 +89,8 @@ if __name__ == '__main__':
         c2 = Category(name="Phụ kiện")
 
         db.session.add_all([c1, c2])
+        db.session.commit()
+
 
         p1 = Product(name='Laptop Apple MacBook Pro 16 M1 Pro 2021', description='10 core-CPU/16GB/512GB/16 core-GPU (MK1E3SA/A)', price=50190000,
                      image='https://cdn.tgdd.vn/Products/Images/44/253636/apple-macbook-pro-16-m1-pro-2021-10-core-cpu-600x600.jpg',
@@ -116,6 +118,8 @@ if __name__ == '__main__':
                   category_id=2)
 
         db.session.add_all([p1, p2, p3, p4, p5, p6, p7, p8])
+        db.session.commit()
+
 
         password = str(hashlib.md5('123123'.encode('utf-8')).hexdigest())
         u = User(name="Admin",
@@ -130,3 +134,5 @@ if __name__ == '__main__':
         cmt2 = Comment(content='Xung dang de mua', user_id=1, product_id=1)
 
         db.session.add_all([cmt1, cmt2])
+        db.session.commit()
+
