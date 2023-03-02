@@ -1,43 +1,28 @@
 {% extends 'layout/base.html' %}
 {% block title %} {% endblock %}
 {% block content %}
-<div class="bg-dark">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
-<div class="">Siêu thị điện máy IT01</div>
+<div class="product-list">
+     <div class="content-section">
+         <div class="product-list">
+             {% for p in products %}
+             <div class="w-25 col h-100">
+                 <div class="img-product">
+                     <a href="{{ url_for('product_detail', product_id = p.id) }}">
+                         <img src="{{ p.image }}" alt="Ảnh" class="product-img">
+                     </a>
+                 </div>
+                 <div class="product-body">
+                     <h2 class="product-heading">{{ p.name }}</h2>
+                     <h3 class="text-price">{{ "{:,.0f}".format(p.price) }} VND</h3>
+                     <p class="prodct-decription">Sat 4 Mar 2023</p>
+                     <p class="product-content">{{ p.description }}</p>
+                     <a href="/products/{{ p.id }}">
+                         <button class="btn1 js-place-buy-btn">Xem Chi Tiết</button>
+                     </a>
+                 </div>
+             </div>
+             {% endfor %}
+         </div>
+     </div>
+</div>
 {% endblock %}
