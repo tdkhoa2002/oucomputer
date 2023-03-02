@@ -2,7 +2,8 @@
     <div class="header">
                 <div class="header-wrap row ">
                     <div class="header-nav__logo col l-2">
-                        <img class="header-nav__logo-img" src="../static/images/logo.png" alt="">
+                        <a href="/"><img class="header-nav__logo-img" src="../static/images/logo.png" alt=""></a>
+
                     </div>
 
                     <div class="header-nav__menu col l-8">
@@ -10,8 +11,8 @@
                             <li class="header-nav__item"><a href="#" class="header-nav__link">Sản phẩm<i class="header-nav__link-arrow"></i></a>
                                 <div class="header-nav__submenu" id="submenu-home">
                                         <ul class="header-nav__submenu-list">
-                                        {% for c in Category %}
-                                            <li class="header-submenu__item"><a href="/list_product?Category_id={{ c.id }}" class="header-submenu__link">{{ c.name }}<i class="header-nav__link-arrow"></i></a></li>
+                                        {% for c in categories %}
+                                            <li class="header-submenu__item"><a href="/category/{{ c.id }}" class="header-submenu__link">{{ c.name }}<i class="header-nav__link-arrow"></i></a></li>
                                         {% endfor %}
                                         </ul>
                                 </div>

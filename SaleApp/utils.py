@@ -69,7 +69,7 @@ def load_categories():
     return query.all()
 
 
-def load_products(category_id=None, keyword=None):  # lay tat ca cac sach
+def load_products(category_id=None, keyword=None):  # lay tat ca cac san pham
     query = Product.query
     if category_id:
         query = query.filter(Product.category_id.__eq__(category_id))

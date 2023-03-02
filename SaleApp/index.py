@@ -3,17 +3,17 @@ from SaleApp import controllers, utils
 from SaleApp.init import app, login
 
 app.add_url_rule("/", "index", controllers.index)
-app.add_url_rule("/products/<int:product_id>", "product-detail", controllers.details)
-# app.add_url_rule("/admin/product/create/", "create-product", controllers.create_product(), methods=['GET'])
-# app.add_url_rule("/admin/product/post", "post_product", controllers.post_product(), methods=['POST'])
-# app.add_url_rule("/admin/product/delete/<int:product_id>", "delete_product", controllers.delete_product())
-# app.add_url_rule("/admin/product/edit/<int:product_id>", "edit_product", controllers.edit_product())
-# app.add_url_rule("/admin/product/update/<int:product_id>", "update_product", controllers.update_product(), methods=['GET', 'POST'])
-# app.add_url_rule("/admin/product/import_products/<int:product_id>", "import_products", controllers.import_products(),
+app.add_url_rule("/products/<int:product_id>", "product_detail", controllers.details)
+# app.add_url_rule("/admin/product/create/", "create-product", controllers.create_product, methods=['GET'])
+# app.add_url_rule("/admin/product/post", "post_product", controllers.post_product, methods=['POST'])
+# app.add_url_rule("/admin/product/delete/<int:product_id>", "delete_product", controllers.delete_product)
+# app.add_url_rule("/admin/product/edit/<int:product_id>", "edit_product", controllers.edit_product)
+# app.add_url_rule("/admin/product/update/<int:product_id>", "update_product", controllers.update_product, methods=['GET', 'POST'])
+# app.add_url_rule("/admin/product/import_products/<int:product_id>", "import_products", controllers.import_products,
 #                  methods=['GET', 'POST'])
 app.add_url_rule('/admin/receipt-details/<int:receipt_id>', "receipt_details", controllers.receipt_details)
 # app.add_url_rule('/admin/receipts/reload_receipt', "reload_receipt", controllers.reload_receipt)
-# app.add_url_rule("/category/<int:category_id>", "categories", controllers.category_products())
+app.add_url_rule("/category/<int:category_id>", "categories", controllers.category_products)
 app.add_url_rule("/register", 'register-user', controllers.user_register, methods=['GET', 'POST'])
 app.add_url_rule("/login", 'user-login', controllers.user_login, methods=['GET', 'POST'])
 app.add_url_rule('/logout', 'logout', controllers.logout_my_user)
@@ -29,7 +29,7 @@ app.add_url_rule("/api/pay", "pay", controllers.pay)
 @app.route("/")
 def home():
     categories = utils.load_categories()
-    render_template('index.html', Category = categories)
+    render_template('index.html', categories=categories)
 
 
 @app.context_processor
@@ -46,21 +46,7 @@ def common_response():
 @login.user_loader
 def user_load(user_id):
     return utils.get_user_by_id(user_id=user_id)
-    return render_template('index.html', Category = categories)
 
-@app.route("/list_product")
-def list_product():
-    categories = utils.load_categories()
-    Category_id = request.args.get("Category_id")
-    product = utils.load_products(Category_id)
-    return render_template('product_1.html', product=product, Category = categories)
-
-@app.route("/product_detail")
-def product_detail():
-    categories = utils.load_categories()
-    Product_id = request.args.get("product_id")
-    product = utils.get_product_by_id(Product_id)
-    return render_template('product_2.html', product=product, Category = categories)
 
 if __name__ == '__main__':
     app.run(debug=True)
