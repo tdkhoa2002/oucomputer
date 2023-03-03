@@ -1,0 +1,48 @@
+
+{% extends 'layout/base.html' %}
+
+{% block title %} Đăng ký tài khoản {% endblock %}
+
+{% block content %}
+    <h1>Đăng ký người dùng</h1>
+
+    {% if err_msg %}
+    <div class="alert-danger">
+        <h4>
+            {{ err_msg }}
+        </h4>
+    </div>
+    {% endif %}
+
+    <form action="/register" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="name">Họ tên: </label>
+            <input type="text" placeholder="Họ tên" class="form-control" name="name" id="name" required>
+        </div>
+        <div class="form-group">
+            <label for="username">Tên tài khoản: </label>
+            <input type="text" placeholder="Tên tài khoản" class="form-control" name="username" id="username" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email: </label>
+            <input type="text" placeholder="Email" class="form-control" name="email" id="email">
+        </div>
+        <div class="form-group">
+            <label for="phone">Số điện thoại: </label>
+            <input type="text" placeholder="Số điện thoại" class="form-control" name="phone" id="phone">
+        </div>
+        <div class="form-group">
+            <label for="password">Mật khẩu: </label>
+            <input type="password" placeholder="Mật khẩu" class="form-control" name="password" id="password">
+        </div>
+        <div class="form-group">
+            <label for="confirm-password">Xác nhận mật khẩu: </label>
+            <input type="password" placeholder="Xác nhận mật khẩu" class="form-control" name="confirm-password" id="confirm-password">
+        </div>
+        <div class="form-group">
+            <label for="avatar">Ảnh đại diện </label>
+            <input type="file" class="form-control" name="avatar" id="avatar" value="https://res.cloudinary.com/de3yhowd4/image/upload/v1670817128/user-default_dzjczj.png">
+        </div>
+        <input class="btn btn-primary" type="submit" value="Đăng ký">
+    </form>
+{% endblock %}
