@@ -155,7 +155,7 @@ def user_login():
         if user:  # co dung trong database hay khong
             if user.active:  # user.active == 1
                 login_user(user=user)
-                return redirect(url_for('index'))
+                return render_template('index.html', user=user)
             elif not user.active:
                 err_msg = "Người dùng đã bị admin chặn"
         else:
@@ -163,9 +163,10 @@ def user_login():
     return render_template('login.html', err_msg=err_msg)
 
 
+@app.route('/log_out_user')
 def logout_my_user():
     logout_user()
-    return redirect('/login')
+    return redirect(url_for('home'))
 
 
 def cart():

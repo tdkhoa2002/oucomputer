@@ -6,42 +6,45 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Giỏ hàng của bạn</h1>
+<div class = "cart">
+    <h1 class="header-cart">Giỏ hàng của bạn</h1>
     {% if 'cart' in session and session['cart'] %}
     <table class="table">
         <tr>
-            <th>Mã sản phẩm</th>
-            <th>Sản phẩm</th>
-            <th>Tên sản phẩm</th>
-            <th>Đơn giá</th>
-            <th>Số lượng</th>
-            <th>Xóa</th>
+            <th class="cart-id text-header">Mã sản phẩm</th>
+            <th class="cart-img text-header">Sản phẩm</th>
+            <th class="cart-name text-header">Tên sản phẩm</th>
+            <th class="cart-price text-header">Đơn giá</th>
+            <th class="cart-quantity text-header">Số lượng</th>
+            <th class="cart-delete text-header">Xóa</th>
         </tr>
         {% for c in session['cart'].values() %}
-        <tr id="cart{{c.id}}">
-            <td>{{ c.id }}</td>
-            <td><img src=" {{ c.image }} " alt="" style="width: 100px; height: 100px"></td>
-            <td>{{ c.name }}</td>
-            <td>{{ "{:,.0f}".format(c.price) }} VNĐ</td>
-            <td><input type="number" min="1" value="{{ c.quantity }}" style="width: 70px; text-align: center" onblur="updateCart({{ c.id }}, this)"></td>
-            <td><a href="" onclick="deleteCart({{ c.id }})"><i class="fa-solid fa-trash"></i></a></td>
+        <tr id="cart{{c.id}}" class="cart-item">
+            <td class="cart-id text-center-cart">{{ c.id }}</td>
+            <td class="cart-img"><img src=" {{ c.image }} " alt=""></td>
+            <td class="cart-name">{{ c.name }}</td>
+            <td class="cart-price">{{ "{:,.0f}".format(c.price) }} VNĐ</td>
+            <td class="cart-quantity"><input type="number" min="1" value="{{ c.quantity }}"onblur="updateCart({{ c.id }}, this)"></td>
+            <td class="cart-delete"><a href="" onclick="deleteCart({{ c.id }})"><i class="fa-solid fa-trash"></i></a></td>
         </tr>
         {% endfor %}
     </table>
-    <input type="text" placeholder="Ghi chú" style="outline:none; width: 1110px; height: 70px; border-radius: 8px; padding: 0 10px; margin: 20px 0">
+    <input type="text" placeholder="Ghi chú" style="outline:none; width: 1110px; height: 50px; border-radius: 8px; padding: 0 10px; margin: 20px 0">
     <div class="alert alert-info">
-        <h5>Tổng tiền: {{ "{:,.0f}".format(cart.total_amount) }} VNĐ</h5>
+        <h5 style="font-size: 14px;">Tổng tiền: {{ "{:,.0f}".format(cart.total_amount) }} VNĐ</h5>
     </div>
     <div>
         {% if current_user.is_authenticated %}
         <input type="button" class="btn btn-success" onclick="pay()" value="Thanh toán" />
         {% else %}
-        <p>Vui lòng <a style="color: red;" href="/login?next=/cart">đăng nhập</a> để thanh toán!</p>
+        <p style="font-size: 14px;">Vui lòng <a style="color: red;" href="/login?next=/cart">đăng nhập</a> để thanh toán!</p>
         {% endif %}
     </div>
     {% else %}
     <p>Không có sản phẩm nào trong giỏ hàng</p>
     {% endif %}
+
+</div>
 
 
 {% endblock %}
