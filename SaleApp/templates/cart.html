@@ -35,7 +35,10 @@
     </div>
     <div>
         {% if current_user.is_authenticated %}
-        <input type="button" class="btn btn-success" onclick="pay()" value="Thanh toán" />
+<!--        <input type="button" class="btn btn-success" onclick="pay()" value="Thanh toán" />-->
+        <a href="/checkout">
+            <input type="button" class="btn btn-success" value="Thanh toán" />
+        </a>
         {% else %}
         <p style="font-size: 14px;">Vui lòng <a style="color: red;" href="/login?next=/cart">đăng nhập</a> để thanh toán!</p>
         {% endif %}

@@ -2,6 +2,7 @@ import hashlib
 import pdb
 from datetime import datetime, date, timedelta
 
+import paypalrestsdk
 from flask_admin import AdminIndexView
 from flask_admin import Admin, BaseView, expose
 from flask_admin.contrib.sqla import ModelView
@@ -263,7 +264,6 @@ def add_comment(product_id):
     })
 
 
-# @app.route("/api/pay")
 @login_required
 def pay():
     key = app.config['CART_KEY']  # 'cart'
@@ -278,3 +278,58 @@ def pay():
         del session[key]
 
     return jsonify({'status': 200})
+
+
+def checkout():
+    return render_template('checkout.html')
+
+
+@app.route('/payment', methods=['POST'])
+def payment():
+    # Lấy giá tiền từ form
+    amount = request.form['amount']
+
+    # Tạo một Payment với các thông tin cần thiết
+    payment = paypalrestsdk.Payment({
+        "intent": "sale",
+        "payer": {
+            "payment_method": "paypal"
+        },
+        "transactions": [{
+            "amount": {
+                "total": amount,
+                "currency": "USD"
+            },
+            "description": "Mua hàng trên Flask Shop"
+        }],
+        "redirect_urls": {
+            "return_url": url_for('success', _external=True),
+            "cancel_url": url_for('home', _external=True)
+        }
+    })
+
+    # Lưu thông tin Payment
+    if payment.create():
+        # Lưu Payment ID vào session
+        session['payment_id'] = payment.id
+        # Redirect user đến trang thanh toán của PayPal
+        for link in payment.links:
+            if link.method == 'REDIRECT':
+                redirect_url = str(link.href)
+                return redirect(redirect_url)
+    else:
+        return "Lỗi trong quá trình tạo Payment"
+
+
+@app.route('/success')
+def success():
+    # Lấy Payment ID từ session
+    payment_id = session.get('payment_id')
+
+    # Xác nhận thanh toán với PayPal
+    payment = paypalrestsdk.Payment.find(payment_id)
+    if payment.execute({"payer_id": payment.payer.payer_info.payer_id}):
+        # Thanh toán thành công, hiển thị trang hoàn tất thanh toán
+        return render_template('index.html')
+    else:
+        return "Lỗi trong quá trình xác nhận thanh toán"

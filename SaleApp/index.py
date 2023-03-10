@@ -24,6 +24,7 @@ app.add_url_rule('/api/cart/<product_id>', "delete-cart", controllers.delete_car
 app.add_url_rule('/api/products/<product_id>/comments', "comments", controllers.comments)
 app.add_url_rule('/api/products/<product_id>/comments', "add_comment", controllers.add_comment, methods=['post'])
 app.add_url_rule("/api/pay", "pay", controllers.pay)
+app.add_url_rule("/checkout", "checkout", controllers.checkout)
 
 
 @app.route("/")

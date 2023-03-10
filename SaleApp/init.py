@@ -1,3 +1,4 @@
+
 from urllib.parse import quote
 
 from flask import Flask
@@ -6,11 +7,12 @@ from flask_login import LoginManager
 from flask_babelex import Babel
 from flask_sqlalchemy import SQLAlchemy
 import cloudinary
+import paypalrestsdk
 
 app = Flask(__name__, template_folder='templates')
 app.secret_key = 'super secret key'
 app.config['FLASK_ADMIN_SWATCH'] = 'Solar'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:%s@localhost/saleapp?charset=utf8mb4' % quote('an01697769522')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:%s@localhost/saleapp?charset=utf8mb4' % quote('dangkhoa1101')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['CART_KEY'] = 'cart'
 
@@ -27,6 +29,11 @@ cloudinary.config(
     secure=True
 )
 
+paypalrestsdk.configure({
+  "mode": "sandbox", # sandbox hoặc live
+  "client_id": "ATLpChZkZEMbpjMBfWW4VD0v86yHaMSq3cQ6ePbSn9rU9aTJu_4mf4LiQOT8RWAk8L1iNy3YyU7qPMpy",
+  "client_secret": "EOq5Nb3_yZMloN3FwCWNwpPKSZt5KN-ZxY8c33n9Uc48VATADdmLd_mnovsD42PosqrrGUGjED-ECWsV"
+})
 
 @babel.localeselector
 def load_locale():

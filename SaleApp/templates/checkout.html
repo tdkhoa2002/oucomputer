@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Paypal Payment Form</title>
+</head>
+<body>
+	<h1>Paypal Payment Form</h1>
+	<form action="/payment" method="POST">
+		<input type="hidden" id="amount" name="amount" value="{{ cart.total_amount }}">
+		<div>
+			<label>Tổng tiền:</label>
+			<h3>{{ "{:,.0f}".format(cart.total_amount) }} VNĐ</h3>
+		</div>
+		<input type="submit" value="Pay with Paypal">
+	</form>
+</body>
+</html>
+
+
+
+
+

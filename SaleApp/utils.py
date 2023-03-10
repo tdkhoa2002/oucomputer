@@ -7,6 +7,8 @@ from sqlalchemy import func
 from SaleApp.init import db, app
 
 from SaleApp.models import User, UserRole, Category, Product, Receipt, ReceiptDetails, Comment
+from flask import session, url_for, redirect, request, render_template
+import paypalrestsdk
 
 import hashlib
 
