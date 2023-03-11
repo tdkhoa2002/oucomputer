@@ -30,10 +30,12 @@
                 <p><i class="fa-solid fa-envelope"></i>Giảm 30% gói BH Mở rộng 24 tháng</p>
                 <p><i class="fa-solid fa-envelope"></i>Giảm 50% phần mềm diệt virus, bảo vệ thanh toán F-secure + Tặng thêm 3 tháng sử dụng</p>
             </div>
-            <a href="/pay-info/{{ product.id }}"><button class="buy-button"><span class="text">Mua ngay</span><span class="text">Cảm ơn!</span></button></a>
+
+            <a href="/api/cart" onclick="addToCart({{ product.id }}, '{{ product.name }}', {{ product.price }}, '{{ product.image }}')">
+                <button><span class="text">Mua ngay</span><span class="text">Cảm ơn!</span></button>
+            </a>
+
         </div>
     </div>
 </div>
-
-
 {% endblock %}

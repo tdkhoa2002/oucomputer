@@ -2,12 +2,13 @@ import hashlib
 import pdb
 from datetime import datetime, date, timedelta
 
+import paypalrestsdk
 from flask_admin import AdminIndexView
 from flask_admin import Admin, BaseView, expose
 from flask_admin.contrib.sqla import ModelView
-
+from SaleApp.admin import admin
 import cloudinary.uploader
-from flask import render_template, request, redirect, url_for, session, jsonify, abort
+from flask import render_template, request, redirect, url_for, session, jsonify, abort, logging
 from flask_login import login_user, logout_user, login_required
 from pytz import HOUR
 from sqlalchemy.sql.functions import now
@@ -15,6 +16,7 @@ from SaleApp import utils
 from SaleApp.init import app, db
 from SaleApp.decorators import annonymous_user
 from SaleApp.models import User, ReceiptDetails, Receipt
+
 
 
 def index():  # Trang chu
@@ -154,7 +156,7 @@ def user_login():
         if user:  # co dung trong database hay khong
             if user.active:  # user.active == 1
                 login_user(user=user)
-                return redirect(url_for('index'))
+                return render_template('index.html', user=user)
             elif not user.active:
                 err_msg = "Người dùng đã bị admin chặn"
         else:
@@ -162,9 +164,10 @@ def user_login():
     return render_template('login.html', err_msg=err_msg)
 
 
+@app.route('/log_out_user')
 def logout_my_user():
     logout_user()
-    return redirect('/login')
+    return redirect(url_for('home'))
 
 
 def cart():
@@ -266,18 +269,85 @@ def add_comment(product_id):
     })
 
 
-# @app.route("/api/pay")
-# @login_required
-# def pay():
-#     key = app.config['CART_KEY']  # 'cart'
-#     cart = session.get(key)
-#
-#     try:
-#         utils.save_receipt(cart)
-#     except Exception as ex:
-#         print(str(ex))
-#         return jsonify({'status': 500})
-#     else:
-#         del session[key]
-#
-#     return jsonify({'status': 200})
+@login_required
+def pay():
+    key = app.config['CART_KEY']  # 'cart'
+    cart = session.get(key)
+
+    try:
+        utils.save_receipt(cart)
+    except Exception as ex:
+        print(str(ex))
+        return jsonify({'status': 500})
+    else:
+        del session[key]
+
+    return jsonify({'status': 200})
+
+
+def checkout():
+    return render_template('checkout.html')
+
+
+@app.route('/payment', methods=['POST'])
+def payment():
+    # Lấy giá tiền từ form
+    amount = request.form['amount']
+
+    # Tạo một Payment với các thông tin cần thiết
+    payment = paypalrestsdk.Payment({
+        "intent": "sale",
+        "payer": {
+            "payment_method": "paypal"
+        },
+        "transactions": [{
+            "amount": {
+                "total": amount,
+                "currency": "USD"
+            },
+            "description": "Mua hàng trên Flask Shop"
+        }],
+        "redirect_urls": {
+            "return_url": url_for('success', _external=True),
+            "cancel_url": url_for('home', _external=True)
+        }
+    })
+
+    # Lưu thông tin Payment
+    if payment.create():
+        # Lưu Payment ID vào session
+        session['payment_id'] = payment.id
+        # Redirect user đến trang thanh toán của PayPal
+        for link in payment.links:
+            if link.method == 'REDIRECT':
+                redirect_url = str(link.href)
+                return redirect(redirect_url)
+    else:
+        return "Lỗi trong quá trình tạo Payment"
+
+
+@app.route('/success')
+def success():
+    # Lấy Payment ID từ session
+    payment_id = session.get('payment_id')
+
+    # Xác nhận thanh toán với PayPal
+    payment = paypalrestsdk.Payment.find(payment_id)
+    if payment.execute({"payer_id": payment.payer.payer_info.payer_id}):
+        # Thanh toán thành công, hiển thị trang hoàn tất thanh toán
+        return render_template('index.html')
+    else:
+        return "Lỗi trong quá trình xác nhận thanh toán"
+
+
+@app.route('/admin', methods=['POST'])
+def signin_admin():
+    if request.method.__eq__('POST'):
+        username = request.form['username']
+        password = request.form['password']
+        user = utils.check_login_admin(username=username, password=password)
+
+        if user:
+            login_user(user=user)
+            return redirect('/admin')
+    return redirect('/admin')
