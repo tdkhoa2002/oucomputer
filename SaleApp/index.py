@@ -18,12 +18,13 @@ app.add_url_rule("/register", 'register-user', controllers.user_register, method
 app.add_url_rule("/login", 'user-login', controllers.user_login, methods=['GET', 'POST'])
 app.add_url_rule('/logout', 'logout', controllers.logout_my_user)
 app.add_url_rule("/cart", "cart", controllers.cart)
+# app.add_url_rule("/pay-info/<int:product_id>", "pay-info", controllers.pay_info)
 app.add_url_rule("/api/cart", "add-cart", controllers.add_to_cart, methods=["POST"])
 app.add_url_rule('/api/cart/<product_id>', "update_cart", controllers.update_cart, methods=['PUT'])
 app.add_url_rule('/api/cart/<product_id>', "delete-cart", controllers.delete_cart, methods=['DELETE'])
 app.add_url_rule('/api/products/<product_id>/comments', "comments", controllers.comments)
 app.add_url_rule('/api/products/<product_id>/comments', "add_comment", controllers.add_comment, methods=['post'])
-app.add_url_rule("/api/pay", "pay", controllers.pay)
+# app.add_url_rule("/api/pay", "pay", controllers.pay)
 
 
 @app.route("/")

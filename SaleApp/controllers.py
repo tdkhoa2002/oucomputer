@@ -27,7 +27,6 @@ def index():  # Trang chu
 
     if not products:
         msg = "Không tìm thấy sản phẩm!"
-
     return render_template('index.html',
                            products=products, msg=msg)
 
@@ -172,6 +171,11 @@ def cart():
     return render_template('cart.html')
 
 
+def pay_info(product_id):
+    b = utils.get_product_by_id(product_id)
+    return render_template('pay-info.html', product=b)
+
+
 def add_to_cart():
     data = request.json
     id = str(data['id'])
@@ -263,17 +267,17 @@ def add_comment(product_id):
 
 
 # @app.route("/api/pay")
-@login_required
-def pay():
-    key = app.config['CART_KEY']  # 'cart'
-    cart = session.get(key)
-
-    try:
-        utils.save_receipt(cart)
-    except Exception as ex:
-        print(str(ex))
-        return jsonify({'status': 500})
-    else:
-        del session[key]
-
-    return jsonify({'status': 200})
+# @login_required
+# def pay():
+#     key = app.config['CART_KEY']  # 'cart'
+#     cart = session.get(key)
+#
+#     try:
+#         utils.save_receipt(cart)
+#     except Exception as ex:
+#         print(str(ex))
+#         return jsonify({'status': 500})
+#     else:
+#         del session[key]
+#
+#     return jsonify({'status': 200})
