@@ -6,9 +6,9 @@ import flask_login as login
 from wtforms import TextAreaField
 from wtforms.widgets import TextArea
 
-from oucomputer.SaleApp.init import db, app
-from oucomputer.SaleApp import utils
-from oucomputer.SaleApp.models import Category, Product, User, UserRole, ReceiptDetails, Rule, Receipt
+from SaleApp.init import db, app
+from SaleApp import utils
+from SaleApp.models import Category, Product, User, UserRole, ReceiptDetails, Receipt
 from flask_admin.contrib.sqla import ModelView
 from flask_admin import AdminIndexView
 from flask_login import current_user, logout_user

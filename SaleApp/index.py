@@ -4,15 +4,15 @@ from SaleApp.init import app, login
 
 app.add_url_rule("/", "index", controllers.index)
 app.add_url_rule("/products/<int:product_id>", "product_detail", controllers.details)
-# app.add_url_rule("/admin/product/create/", "create-product", controllers.create_product, methods=['GET'])
-# app.add_url_rule("/admin/product/post", "post_product", controllers.post_product, methods=['POST'])
-# app.add_url_rule("/admin/product/delete/<int:product_id>", "delete_product", controllers.delete_product)
-# app.add_url_rule("/admin/product/edit/<int:product_id>", "edit_product", controllers.edit_product)
-# app.add_url_rule("/admin/product/update/<int:product_id>", "update_product", controllers.update_product, methods=['GET', 'POST'])
+app.add_url_rule("/admin/product/create/", "create-product", controllers.create_product, methods=['GET'])
+app.add_url_rule("/admin/product/post", "post_product", controllers.post_product, methods=['POST'])
+app.add_url_rule("/admin/product/delete/<int:product_id>", "delete_product", controllers.delete_product)
+app.add_url_rule("/admin/product/edit/<int:product_id>", "edit_product", controllers.edit_product)
+app.add_url_rule("/admin/product/update/<int:product_id>", "update_product", controllers.update_product, methods=['GET', 'POST'])
 # app.add_url_rule("/admin/product/import_products/<int:product_id>", "import_products", controllers.import_products,
 #                  methods=['GET', 'POST'])
 app.add_url_rule('/admin/receipt-details/<int:receipt_id>', "receipt_details", controllers.receipt_details)
-# app.add_url_rule('/admin/receipts/reload_receipt', "reload_receipt", controllers.reload_receipt)
+app.add_url_rule('/admin/receipts/reload_receipt', "reload_receipt", controllers.reload_receipt)
 app.add_url_rule("/category/<int:category_id>", "categories", controllers.category_products)
 app.add_url_rule("/register", 'register-user', controllers.user_register, methods=['GET', 'POST'])
 app.add_url_rule("/login", 'user-login', controllers.user_login, methods=['GET', 'POST'])
@@ -24,7 +24,6 @@ app.add_url_rule('/api/cart/<product_id>', "delete-cart", controllers.delete_car
 app.add_url_rule('/api/products/<product_id>/comments', "comments", controllers.comments)
 app.add_url_rule('/api/products/<product_id>/comments', "add_comment", controllers.add_comment, methods=['post'])
 app.add_url_rule("/api/pay", "pay", controllers.pay)
-app.add_url_rule("/checkout", "checkout", controllers.checkout)
 
 
 @app.route("/")

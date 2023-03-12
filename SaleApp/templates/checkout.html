@@ -9,7 +9,7 @@
 		<input type="hidden" id="amount" name="amount" value="{{ cart.total_amount }}">
 		<div>
 			<label>Tổng tiền:</label>
-			<h3>{{ "{:,.0f}".format(cart.total_amount) }} VNĐ</h3>
+			<h3>{{ "{:,.0f}".format(cart.total_amount) }}$</h3>
 		</div>
 		<input type="submit" value="Pay with Paypal">
 	</form>

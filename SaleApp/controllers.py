@@ -100,7 +100,6 @@ def update_product(product_id):
     return redirect('/admin/product/')
 
 
-
 def receipt_details(receipt_id):
     receipt = utils.get_receipt_by_id(receipt_id=receipt_id)
     receipt_details = ReceiptDetails.query.filter(ReceiptDetails.receipt_id.__eq__(receipt.id)).all()
@@ -303,8 +302,8 @@ def payment():
             "description": "Mua hàng trên Flask Shop"
         }],
         "redirect_urls": {
-            "return_url": url_for('success', _external=True),
-            "cancel_url": url_for('home', _external=True)
+            "return_url": url_for('success', _external=True, ),
+            "cancel_url": url_for('cart', _external=True)
         }
     })
 

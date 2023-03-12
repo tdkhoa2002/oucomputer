@@ -31,14 +31,15 @@
     </table>
     <input type="text" placeholder="Ghi chú" style="outline:none; width: 1110px; height: 50px; border-radius: 8px; padding: 0 10px; margin: 20px 0">
     <div class="alert alert-info">
-        <h5 style="font-size: 14px;">Tổng tiền: {{ "{:,.0f}".format(cart.total_amount) }} VNĐ</h5>
+        <h5 style="font-size: 14px;">Tổng tiền: {{ "{:,.0f}".format(cart.total_amount) }}$</h5>
     </div>
     <div>
         {% if current_user.is_authenticated %}
 <!--        <input type="button" class="btn btn-success" onclick="pay()" value="Thanh toán" />-->
-        <a href="/checkout">
-            <input type="button" class="btn btn-success" value="Thanh toán" />
-        </a>
+        <form action="/payment" method="POST">
+            <input type="hidden" id="amount" name="amount" value="{{ cart.total_amount }}">
+            <input type="submit" class="btn btn-success" value="Thanh toán" />
+        </form>
         {% else %}
         <p style="font-size: 14px;">Vui lòng <a style="color: red;" href="/login?next=/cart">đăng nhập</a> để thanh toán!</p>
         {% endif %}
