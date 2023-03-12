@@ -13,8 +13,6 @@ app.add_url_rule("/admin/product/update/<int:product_id>", "update_product", con
 # app.add_url_rule("/admin/product/import_products/<int:product_id>", "import_products", controllers.import_products,
 #                  methods=['GET', 'POST'])
 app.add_url_rule('/admin/receipt-details/<int:receipt_id>', "receipt_details", controllers.receipt_details)
-# app.add_url_rule('/admin/receipts/reload_receipt', "reload_receipt", controllers.reload_receipt)
-# app.add_url_rule('/admin/receipt-details/<int:receipt_id>', "receipt_details", controllers.receipt_details)
 app.add_url_rule("/category/<int:category_id>", "categories", controllers.category_products)
 app.add_url_rule("/register", 'register-user', controllers.user_register, methods=['GET', 'POST'])
 app.add_url_rule("/login", 'user-login', controllers.user_login, methods=['GET', 'POST'])

@@ -94,15 +94,22 @@ class StatsView(AuthenticatedView):
     @expose('/')
     def index(self):
         stats = utils.stats_revenue_by_prod(kw=request.args.get('kw'),
-                                          from_date=request.args.get('from_date'),
-                                          to_date=request.args.get('to_date'))
+                                            from_date=request.args.get('from_date'),
+                                            to_date=request.args.get('to_date'))
         return self.render('admin/stats.html', stats=stats)
+
+
+class ReceiptView(ModelView):
+    @expose('/')
+    def index(self):
+        receipts = utils.load_receipts()
+        return self.render('admin/receipts.html', receipts=receipts)
 
 
 admin.add_view(StatsView(name='Thống kê - báo cáo'))
 admin.add_view(AuthenticatedModelView(Category, db.session, name='Loại sản phẩm'))
 admin.add_view(ListProductView(Product, db.session, name='Quản lý sản phẩm'))
-admin.add_view(ListAccount(Account, db.session, name="Quản lý tài khoản"))
+admin.add_view(ReceiptView(Receipt, db.session, name="Các hóa đơn"))
+admin.add_view(ListAccount(User, db.session, name="Quản lý tài khoản"))
 admin.add_view(AccountSignupView(name='Đăng ký tài khoản', endpoint='signup'))
 admin.add_view(LogoutView(name='Đăng xất'))
-

@@ -107,7 +107,7 @@ def receipt_details(receipt_id):
     for product in receipt_details:
         sum += product.quantity * product.price
 
-    return render_template('admin/receipt/receipt-details.html', receipt_details=receipt_details, sum=sum)
+    return render_template('admin/receipt-details.html', receipt_details=receipt_details, sum=sum)
 
 
 def user_register():
@@ -281,11 +281,7 @@ def pay():
     else:
         del session[key]
 
-    return jsonify({'status': 200})
-
-
-def checkout():
-    return render_template('checkout.html')
+    return redirect('/')
 
 
 @app.route('/payment', methods=['POST'])
@@ -307,7 +303,7 @@ def payment():
             "description": "Mua hàng trên Flask Shop"
         }],
         "redirect_urls": {
-            "return_url": url_for('success', _external=True, ),
+            "return_url": url_for('success', _external=True),
             "cancel_url": url_for('cart', _external=True)
         }
     })
@@ -334,7 +330,7 @@ def success():
     payment = paypalrestsdk.Payment.find(payment_id)
     if payment.execute({"payer_id": payment.payer.payer_info.payer_id}):
         # Thanh toán thành công, hiển thị trang hoàn tất thanh toán
-        return render_template('index.html')
+        return redirect(url_for('pay'))
     else:
         return "Lỗi trong quá trình xác nhận thanh toán"
 

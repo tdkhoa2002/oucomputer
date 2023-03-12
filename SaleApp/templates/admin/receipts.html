@@ -1,0 +1,20 @@
+{% extends 'admin/master.html' %}
+
+{% block body %}
+<script src="https://kit.fontawesome.com/5b74b58050.js" crossorigin="anonymous"></script>
+<h1>{{ err_msg }}</h1>
+<table class="table">
+    <tr>
+        <th>User</th>
+        <th>Thời gian</th>
+        <th>Chi tiết</th>
+    </tr>
+    {% for receipt in receipts %}
+    <tr>
+        <td>{{ receipt.user.name }}</td>
+        <td>{{ receipt.created_date }}</td>
+        <td><a style="color:black;" href="/admin/receipt-details/{{ receipt.id }}" ><i class="fa-solid fa-eye"></i></a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
