@@ -6,7 +6,7 @@ from sqlalchemy import func
 
 from SaleApp.init import db, app
 
-from SaleApp.models import User, UserRole, Category, Product, Receipt, ReceiptDetails, Comment, Account
+from SaleApp.models import User, UserRole, Category, Product, Receipt, ReceiptDetails, Comment
 from flask import session, url_for, redirect, request, render_template
 import paypalrestsdk
 
@@ -143,13 +143,13 @@ def save_comment(content, product_id):
 def check_login_admin(username, password, user_role=UserRole.admin):
     password = str(hashlib.md5(password.strip().encode('utf-8')).hexdigest())
     return User.query.filter(User.username.__eq__(username.strip()),
-                                User.password.__eq__(password),
-                                User.user_role.__eq__(user_role)).first()
+                             User.password.__eq__(password),
+                             User.user_role.__eq__(user_role)).first()
 
 
 def account_signup(name, username, password, user_role):
     password = str(hashlib.md5(password.strip().encode('utf-8')).hexdigest())
-    account = Account(name=name.strip(), username=username.strip(), password=password, user_role=user_role)
+    account = User(name=name.strip(), username=username.strip(), password=password, user_role=user_role)
 
     db.session.add(account)
     db.session.commit()

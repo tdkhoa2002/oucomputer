@@ -12,7 +12,7 @@ from SaleApp.models import Category, Product, User, UserRole, ReceiptDetails, Re
 from SaleApp import *
 from SaleApp import utils
 from SaleApp.init import app, db, admin
-from SaleApp.models import Category, Product, User, UserRole, ReceiptDetails, Receipt, Account
+from SaleApp.models import Category, Product, User, UserRole, ReceiptDetails, Receipt
 from flask_admin.contrib.sqla import ModelView
 from flask_admin import AdminIndexView
 from flask_login import current_user, logout_user
@@ -99,7 +99,7 @@ class StatsView(AuthenticatedView):
         return self.render('admin/stats.html', stats=stats)
 
 
-class ReceiptView(ModelView):
+class ReceiptView(AuthenticatedView):
     @expose('/')
     def index(self):
         receipts = utils.load_receipts()
@@ -109,7 +109,7 @@ class ReceiptView(ModelView):
 admin.add_view(StatsView(name='Thống kê - báo cáo'))
 admin.add_view(AuthenticatedModelView(Category, db.session, name='Loại sản phẩm'))
 admin.add_view(ListProductView(Product, db.session, name='Quản lý sản phẩm'))
-admin.add_view(ReceiptView(Receipt, db.session, name="Các hóa đơn"))
+admin.add_view(ReceiptView(name='Hóa đơn'))
 admin.add_view(ListAccount(User, db.session, name="Quản lý tài khoản"))
 admin.add_view(AccountSignupView(name='Đăng ký tài khoản', endpoint='signup'))
 admin.add_view(LogoutView(name='Đăng xất'))

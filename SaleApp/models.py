@@ -46,24 +46,13 @@ class Product(BaseModel):
         return self.name
 
 
-class Account(BaseModel, UserMixin):
-    name = Column(String(50), nullable=False)
-    username = Column(String(50), nullable=False, unique=True)
-    password = Column(String(50), nullable=False)
-    active = Column(Boolean, default=True)
-    user_role = Column(Enum(UserRole), default=UserRole.user)
-
-    def __str__(self):
-        return self.name
-
-
 class User(BaseModel, UserMixin):
     name = Column(String(50), nullable=False)
     username = Column(String(50), nullable=False, unique=True)
     password = Column(String(50), nullable=False)
     avatar = Column(String(100))
     email = Column(String(50))
-    phone = Column(String(100), nullable=False)
+    phone = Column(String(100), nullable=True)
     active = Column(Boolean, default=True)
     joined_date = Column(DateTime, default=datetime.now())
     user_role = Column(Enum(UserRole), default=UserRole.user)
@@ -93,8 +82,7 @@ class Comment(BaseModel):
 
 if __name__ == '__main__':
     with app.app_context():
-
-        db.create_all()
+        # db.create_all()
 
         c1 = Category(name="Máy tính")
         c2 = Category(name="Phụ kiện")
@@ -102,35 +90,40 @@ if __name__ == '__main__':
         db.session.add_all([c1, c2])
         db.session.commit()
 
-
-        p1 = Product(name='Laptop Apple MacBook Pro 16 M1 Pro 2021', description='10 core-CPU/16GB/512GB/16 core-GPU (MK1E3SA/A)', price=230,
+        p1 = Product(name='Laptop Apple MacBook Pro 16 M1 Pro 2021',
+                     description='10 core-CPU/16GB/512GB/16 core-GPU (MK1E3SA/A)', price=230,
                      image='https://cdn.tgdd.vn/Products/Images/44/253636/apple-macbook-pro-16-m1-pro-2021-10-core-cpu-600x600.jpg',
                      category_id=1)
-        p2 = Product(name='Laptop Asus Gaming ROG Strix SCAR 18', description='i9 13980HX/64GB/2TB/16GB RTX4090/240Hz/Balo/Chuột/Win11(N6039W)', price=125,
+        p2 = Product(name='Laptop Asus Gaming ROG Strix SCAR 18',
+                     description='i9 13980HX/64GB/2TB/16GB RTX4090/240Hz/Balo/Chuột/Win11(N6039W)', price=125,
                      image='https://cdn.tgdd.vn/Products/Images/44/302473/asus-gaming-rog-strix-scar-18-g834jy-i9-n6039w-thumb-600x600.jpg',
                      category_id=1)
-        p3 = Product(name='Laptop HP Envy 16 h0205TX', description='i9 12900H/32GB/512GB/6GB RTX3060/Touch/Win11 (7C0T2PA)', price=365,
+        p3 = Product(name='Laptop HP Envy 16 h0205TX',
+                     description='i9 12900H/32GB/512GB/6GB RTX3060/Touch/Win11 (7C0T2PA)', price=365,
                      image='https://cdn.tgdd.vn/Products/Images/44/302980/hp-envy-16-h0205tx-i9-7c0t2pa-1.jpg',
                      category_id=1)
-        p4 = Product(name='Laptop MSI Creator Z16 A12UET', description='i7 12700H/16GB/1TB SSD/6GB RTX3060/120Hz/Túi/Chuột/Win11 (036VN)', price=222,
+        p4 = Product(name='Laptop MSI Creator Z16 A12UET',
+                     description='i7 12700H/16GB/1TB SSD/6GB RTX3060/120Hz/Túi/Chuột/Win11 (036VN)', price=222,
                      image='https://cdn.tgdd.vn/Products/Images/44/274783/msi-creator-z16-a12uet-i7-036vn-200322-110544-600x600.jpg',
                      category_id=1)
         p5 = Product(name='Pin sạc dự phòng Polymer', description='10.000 mAh AVA PJ JP196', price=333,
                      image='https://cdn.tgdd.vn/Products/Images/57/217434/pin-sac-du-phong-polymer-10000mah-ava-pj-jp196-den-thumb-1-600x600.jpeg',
                      category_id=2)
-        p6 = Product(name='Cáp Micro USB 20cm AVA Speed II', description='Thiết kế nhỏ gọn, chất liệu mềm dẻo dễ quấn gọn, dễ mang theo bên mình.', price=123,
-                      image='https://cdn.tgdd.vn/Products/Images/58/217252/cap-micro-20cm-ava-speed-ii-thumb3-600x600.jpeg',
-                      category_id=2)
-        p7 = Product(name='Ốp lưng iPhone 11 Pro Nhựa dẻo Noble Nake JM', description='Thiết kế trong suốt đẹp mắt, tôn vinh vẻ ngoài cao cấp của iPhone 11 Pro.', price=112,
-                  image='https://cdn.tgdd.vn/Products/Images/60/212054/op-lung-iphone-11-pro-nhua-deo-noble-nake-jm-nude-1-1-600x600.jpg',
-                  category_id=2)
-        p8 = Product(name='Miếng dán màn hình iPhone 12 Mini', description='Chống trầy xước tối ưu màn hình điện thoại iPhone 12 mini.', price=553,
-                  image='https://cdn.tgdd.vn/Products/Images/1363/230505/mieng-dan-man-hinh-iphone-12-mini-ava-600x600.jpg',
-                  category_id=2)
+        p6 = Product(name='Cáp Micro USB 20cm AVA Speed II',
+                     description='Thiết kế nhỏ gọn, chất liệu mềm dẻo dễ quấn gọn, dễ mang theo bên mình.', price=123,
+                     image='https://cdn.tgdd.vn/Products/Images/58/217252/cap-micro-20cm-ava-speed-ii-thumb3-600x600.jpeg',
+                     category_id=2)
+        p7 = Product(name='Ốp lưng iPhone 11 Pro Nhựa dẻo Noble Nake JM',
+                     description='Thiết kế trong suốt đẹp mắt, tôn vinh vẻ ngoài cao cấp của iPhone 11 Pro.', price=112,
+                     image='https://cdn.tgdd.vn/Products/Images/60/212054/op-lung-iphone-11-pro-nhua-deo-noble-nake-jm-nude-1-1-600x600.jpg',
+                     category_id=2)
+        p8 = Product(name='Miếng dán màn hình iPhone 12 Mini',
+                     description='Chống trầy xước tối ưu màn hình điện thoại iPhone 12 mini.', price=553,
+                     image='https://cdn.tgdd.vn/Products/Images/1363/230505/mieng-dan-man-hinh-iphone-12-mini-ava-600x600.jpg',
+                     category_id=2)
 
         db.session.add_all([p1, p2, p3, p4, p5, p6, p7, p8])
         db.session.commit()
-
 
         password = str(hashlib.md5('123123'.encode('utf-8')).hexdigest())
         u = User(name="Admin",
@@ -146,4 +139,3 @@ if __name__ == '__main__':
 
         db.session.add_all([cmt1, cmt2])
         db.session.commit()
-

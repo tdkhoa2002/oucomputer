@@ -18,13 +18,13 @@ from SaleApp.decorators import annonymous_user
 from SaleApp.models import User, ReceiptDetails, Receipt
 
 
-
 def index():  # Trang chu
     msg = ""
     category_id = request.args.get('category_id')
     keyword = request.args.get('keyword')
 
-    products = utils.load_products(category_id=category_id, keyword=keyword)  # lay sach co keyword nguoi dung vua tim kiem
+    products = utils.load_products(category_id=category_id,
+                                   keyword=keyword)  # lay sach co keyword nguoi dung vua tim kiem
     # hoac lay tat ca cac sach ra
 
     if not products:
@@ -61,7 +61,7 @@ def post_product():
             image_path = res['secure_url']
 
         utils.save_product(name=name, price=price, description=description, quantity=quantity,
-                        image=image_path)
+                           image=image_path)
     return redirect('/admin/products')
 
 
@@ -341,7 +341,6 @@ def signin_admin():
         username = request.form['username']
         password = request.form['password']
         user = utils.check_login_admin(username=username, password=password)
-
         if user:
             login_user(user=user)
             return redirect('/admin')
