@@ -2,6 +2,7 @@ from flask import render_template, session, request
 from SaleApp import controllers, utils
 from SaleApp.init import app, login
 
+
 app.add_url_rule("/", "index", controllers.index)
 app.add_url_rule("/products/<int:product_id>", "product_detail", controllers.details)
 app.add_url_rule("/admin/product/create/", "create-product", controllers.create_product, methods=['GET'])
@@ -12,12 +13,14 @@ app.add_url_rule("/admin/product/update/<int:product_id>", "update_product", con
 # app.add_url_rule("/admin/product/import_products/<int:product_id>", "import_products", controllers.import_products,
 #                  methods=['GET', 'POST'])
 app.add_url_rule('/admin/receipt-details/<int:receipt_id>', "receipt_details", controllers.receipt_details)
-app.add_url_rule('/admin/receipts/reload_receipt', "reload_receipt", controllers.reload_receipt)
+# app.add_url_rule('/admin/receipts/reload_receipt', "reload_receipt", controllers.reload_receipt)
+# app.add_url_rule('/admin/receipt-details/<int:receipt_id>', "receipt_details", controllers.receipt_details)
 app.add_url_rule("/category/<int:category_id>", "categories", controllers.category_products)
 app.add_url_rule("/register", 'register-user', controllers.user_register, methods=['GET', 'POST'])
 app.add_url_rule("/login", 'user-login', controllers.user_login, methods=['GET', 'POST'])
 app.add_url_rule('/logout', 'logout', controllers.logout_my_user)
 app.add_url_rule("/cart", "cart", controllers.cart)
+# app.add_url_rule("/pay-info/<int:product_id>", "pay-info", controllers.pay_info)
 app.add_url_rule("/api/cart", "add-cart", controllers.add_to_cart, methods=["POST"])
 app.add_url_rule('/api/cart/<product_id>', "update_cart", controllers.update_cart, methods=['PUT'])
 app.add_url_rule('/api/cart/<product_id>', "delete-cart", controllers.delete_cart, methods=['DELETE'])

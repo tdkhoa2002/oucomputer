@@ -6,7 +6,7 @@ from sqlalchemy import func
 
 from SaleApp.init import db, app
 
-from SaleApp.models import User, UserRole, Category, Product, Receipt, ReceiptDetails, Comment
+from SaleApp.models import User, UserRole, Category, Product, Receipt, ReceiptDetails, Comment, Account
 from flask import session, url_for, redirect, request, render_template
 import paypalrestsdk
 
@@ -138,3 +138,41 @@ def save_comment(content, product_id):
     db.session.add(cmt)
     db.session.commit()
     return cmt
+
+
+def check_login_admin(username, password, user_role=UserRole.admin):
+    password = str(hashlib.md5(password.strip().encode('utf-8')).hexdigest())
+    return User.query.filter(User.username.__eq__(username.strip()),
+                                User.password.__eq__(password),
+                                User.user_role.__eq__(user_role)).first()
+
+
+def account_signup(name, username, password, user_role):
+    password = str(hashlib.md5(password.strip().encode('utf-8')).hexdigest())
+    account = Account(name=name.strip(), username=username.strip(), password=password, user_role=user_role)
+
+    db.session.add(account)
+    db.session.commit()
+
+
+def count_product_by_cate():
+    return db.session.query(Category.id, Category.name, func.count(Product.id)) \
+        .join(Product, Product.Category_id.__eq__(Category.id), isouter=True) \
+        .group_by(Category.id).order_by(-Category.name).all()
+
+
+def stats_revenue_by_prod(kw=None, from_date=None, to_date=None):
+    query = db.session.query(Product.id, Product.name, func.sum(ReceiptDetails.quantity * ReceiptDetails.price)) \
+        .join(ReceiptDetails, ReceiptDetails.product_id.__eq__(Product.id)) \
+        .join(Receipt, ReceiptDetails.receipt_id.__eq__(Receipt.id))
+
+    if kw:
+        query = query.filter(Product.name.contains(kw))
+
+    if from_date:
+        query = query.filter(Receipt.created_date.__ge__(from_date))
+
+    if to_date:
+        query = query.filter(Receipt.created_date.__le__(to_date))
+
+    return query.group_by(Product.id).all()

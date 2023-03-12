@@ -6,9 +6,9 @@ import paypalrestsdk
 from flask_admin import AdminIndexView
 from flask_admin import Admin, BaseView, expose
 from flask_admin.contrib.sqla import ModelView
-
+from SaleApp.admin import admin
 import cloudinary.uploader
-from flask import render_template, request, redirect, url_for, session, jsonify, abort
+from flask import render_template, request, redirect, url_for, session, jsonify, abort, logging
 from flask_login import login_user, logout_user, login_required
 from pytz import HOUR
 from sqlalchemy.sql.functions import now
@@ -16,6 +16,7 @@ from SaleApp import utils
 from SaleApp.init import app, db
 from SaleApp.decorators import annonymous_user
 from SaleApp.models import User, ReceiptDetails, Receipt
+
 
 
 def index():  # Trang chu
@@ -28,7 +29,6 @@ def index():  # Trang chu
 
     if not products:
         msg = "Không tìm thấy sản phẩm!"
-
     return render_template('index.html',
                            products=products, msg=msg)
 
@@ -171,6 +171,11 @@ def logout_my_user():
 
 def cart():
     return render_template('cart.html')
+
+
+def pay_info(product_id):
+    b = utils.get_product_by_id(product_id)
+    return render_template('pay-info.html', product=b)
 
 
 def add_to_cart():
@@ -332,3 +337,16 @@ def success():
         return render_template('index.html')
     else:
         return "Lỗi trong quá trình xác nhận thanh toán"
+
+
+@app.route('/admin', methods=['POST'])
+def signin_admin():
+    if request.method.__eq__('POST'):
+        username = request.form['username']
+        password = request.form['password']
+        user = utils.check_login_admin(username=username, password=password)
+
+        if user:
+            login_user(user=user)
+            return redirect('/admin')
+    return redirect('/admin')

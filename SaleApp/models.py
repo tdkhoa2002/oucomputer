@@ -46,6 +46,17 @@ class Product(BaseModel):
         return self.name
 
 
+class Account(BaseModel, UserMixin):
+    name = Column(String(50), nullable=False)
+    username = Column(String(50), nullable=False, unique=True)
+    password = Column(String(50), nullable=False)
+    active = Column(Boolean, default=True)
+    user_role = Column(Enum(UserRole), default=UserRole.user)
+
+    def __str__(self):
+        return self.name
+
+
 class User(BaseModel, UserMixin):
     name = Column(String(50), nullable=False)
     username = Column(String(50), nullable=False, unique=True)
@@ -83,7 +94,7 @@ class Comment(BaseModel):
 if __name__ == '__main__':
     with app.app_context():
 
-        # db.create_all()
+        db.create_all()
 
         c1 = Category(name="Máy tính")
         c2 = Category(name="Phụ kiện")

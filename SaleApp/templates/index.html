@@ -3,6 +3,11 @@
 {% block content %}
 <div class="product-list">
      <div class="content-section">
+         {% if msg %}
+        <div class="alert alert-danger">
+            <h3>{{ msg }}</h3>
+        </div>
+        {% endif %}
          <div class="product-list">
              {% for p in products %}
              <div class="w-25 col h-100">
