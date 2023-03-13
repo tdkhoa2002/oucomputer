@@ -23,7 +23,7 @@
             <td class="cart-id text-center-cart">{{ c.id }}</td>
             <td class="cart-img"><img src=" {{ c.image }} " alt=""></td>
             <td class="cart-name">{{ c.name }}</td>
-            <td class="cart-price">{{ "{:,.0f}".format(c.price) }} VNĐ</td>
+            <td class="cart-price">{{ "{:,.0f}".format(c.price) }}$</td>
             <td class="cart-quantity"><input type="number" min="1" value="{{ c.quantity }}"onblur="updateCart({{ c.id }}, this)"></td>
             <td class="cart-delete"><a href="" onclick="deleteCart({{ c.id }})"><i class="fa-solid fa-trash"></i></a></td>
         </tr>

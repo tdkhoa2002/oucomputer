@@ -157,7 +157,7 @@ def account_signup(name, username, password, user_role):
 
 def count_product_by_cate():
     return db.session.query(Category.id, Category.name, func.count(Product.id)) \
-        .join(Product, Product.Category_id.__eq__(Category.id), isouter=True) \
+        .join(Product, Product.category_id.__eq__(Category.id), isouter=True) \
         .group_by(Category.id).order_by(-Category.name).all()
 
 

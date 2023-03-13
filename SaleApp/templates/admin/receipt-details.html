@@ -11,7 +11,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Tên sách</th>
+                <th scope="col">Tên sản phẩm</th>
                 <th scope="col">Số lượng</th>
                 <th scope="col">Giá</th>
             </tr>
@@ -21,13 +21,13 @@
             <tr>
                 <td>{{ receipt.product.name }}</td>
                 <td>{{ receipt.quantity }}</td>
-                <td>{{ "{:,.0f}".format(receipt.price) }} VNĐ</td>
+                <td>{{ "{:,.0f}".format(receipt.price) }}$</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 
-    <h1>Thành tiền: {{ "{:,.0f}".format(sum) }} VNĐ</h1>
+    <h1>Thành tiền: {{ "{:,.0f}".format(sum) }}$</h1>
 </div>
 
 
