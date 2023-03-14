@@ -15,7 +15,7 @@ app = Flask(__name__)
 app.secret_key = 'super secret key'
 app.config['FLASK_ADMIN_SWATCH'] = 'Solar'
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:%s@localhost/saleapp?charset=utf8mb4' % quote('an01697769522')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:%s@localhost/saleapp?charset=utf8mb4' % quote('dangkhoa1101')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['CART_KEY'] = 'cart'
 

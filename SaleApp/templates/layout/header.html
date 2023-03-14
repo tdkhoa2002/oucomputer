@@ -36,16 +36,7 @@
                               </form>
                             </li>
                             <li class="header-nav-right__item">
-                                <a href="/cart"><i class="header-nav-right__icon header-nav__cart fas fa-shopping-cart"></i></a>
-                                {% if 'cart' in session and session['cart'] %}
-                                <div class="header-nav-cart__product">
-                                    <span class="no-product">Xem giỏ hàng</span>
-                                </div>
-                                {% else %}
-                                <div class="header-nav-cart__product">
-                                    <span class="no-product">Không có sản phẩm trong giỏ hàng</span>
-                                </div>
-                                {% endif %}
+                                <a href="/cart"><i class="fa-solid fa-cart-shopping"> <span class="cart-counter">{{ cart.total_quantity }}</span></i></a>
                             </li>
                         </ul>
                     </div>

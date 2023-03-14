@@ -3,10 +3,10 @@ function spinner(status="block") {
     for (let i = 0; i < s.length; i++)
         s[i].style.display = status
 }
-///api/books/<book_id>/comments
-function loadComments(book_id) {
+///api/products/<product_id>/comments
+function loadComments(product_id) {
     spinner()
-    fetch(`/api/books/${book_id}/comments`).then(res => res.json()).then(data => {
+    fetch(`/api/products/${product_id}/comments`).then(res => res.json()).then(data => {
         spinner("none")
         let h = ""
         data.forEach(c => {
@@ -33,10 +33,10 @@ function loadComments(book_id) {
 
 }
 
-///api/books/<book_id>/comments
-function addComment(book_id) {
+///api/products/<product_id>/comments
+function addComment(product_id) {
     spinner()
-     fetch(`/api/books/${book_id}/comments`, {
+     fetch(`/api/products/${product_id}/comments`, {
         method: "post",
         body: JSON.stringify({
             "content": document.getElementById('comment-content').value

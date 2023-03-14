@@ -21,9 +21,9 @@ function addToCart(id, name, price, image) {
 }
 
 
-function deleteCart(book_id) {
+function deleteCart(product_id) {
     if (confirm("Bạn có muốn xóa sản phẩm này trong giỏ hàng không?") == true) {
-        fetch(`/api/cart/${book_id}`, {
+        fetch(`/api/cart/${product_id}`, {
             method: "delete"
         }).then(res => res.json()).then(data => {
             console.info(data)
@@ -37,14 +37,14 @@ function deleteCart(book_id) {
             for (let i = 0; i < cart_amount.length; i++)
                 cart_amount[i].innerText = data.total_amount.toLocaleString("en-US")
 
-            let cart_id = document.getElementById(`cart${book_id}`)
+            let cart_id = document.getElementById(`cart${product_id}`)
             cart_id.style.display = "none"
         }).catch(err => console.info(err)) // js promise
     }
 }
 
-function updateCart(book_id, object) {
-    fetch(`/api/cart/${book_id}`, {
+function updateCart(product_id, object) {
+    fetch(`/api/cart/${product_id}`, {
         method: "PUT",
         body: JSON.stringify({
             "quantity": object.value
