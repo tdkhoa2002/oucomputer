@@ -35,18 +35,27 @@
                                   </button>
                               </form>
                             </li>
-                            <li class="header-nav-right__item"><i class="header-nav-right__icon header-nav__cart fas fa-shopping-cart"></i>
+                            <li class="header-nav-right__item">
+                                <a href="/cart"><i class="header-nav-right__icon header-nav__cart fas fa-shopping-cart"></i></a>
+                                {% if 'cart' in session and session['cart'] %}
+                                <div class="header-nav-cart__product">
+                                    <span class="no-product">Xem giỏ hàng</span>
+                                </div>
+                                {% else %}
                                 <div class="header-nav-cart__product">
                                     <span class="no-product">Không có sản phẩm trong giỏ hàng</span>
                                 </div>
+                                {% endif %}
                             </li>
                         </ul>
                     </div>
                     <div class="header-nav__right col l-2" style="margin: auto;">
-                        <div class="header-nav-right__item" style="margin-left: 60px;">
+                        <div class="header-nav-right__item col" style="margin-left: 60px;">
                             <div class="">
                                 <a class="header-nav__link" href="/login">Đăng Nhập</a>
                             </div>
+                        </div>
+                        <div class="header-nav-right__item col" style="margin-left: 60px;">
                             <div class="">
                                 <a class="header-nav__link" href="/register">Đăng Ký</a>
                             </div>
